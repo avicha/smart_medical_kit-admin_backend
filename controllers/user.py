@@ -22,7 +22,7 @@ class UserController(UserCommonController):
         total_rows = q.count()
         result = []
         for x in q.order_by(UserModel.created_at.desc()).paginate(page_number, page_size):
-            user = x.format('id,username,sex,phone_number,nick,avatar,province_code,province,city_code,city,region_code,region_code,street,created_at')
+            user = x.format('id,username,sex,phone_number,nick,avatar,register_type,created_at')
             result.append(user)
         return cls.success_with_list_result(total_rows, result)
 
@@ -35,10 +35,8 @@ class UserController(UserCommonController):
         phone_number = data.get('phone_number', None)
         nick = data.get('nick', None)
         avatar = data.get('avatar', None)
-        region_code = data.get('region_code')
-        street = data.get('street')
         if user_id:
-            update_data = {'phone_number': phone_number, 'sex': sex, 'nick': nick, 'avatar': avatar, 'region_code': region_code, 'street': street, 'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+            update_data = {'phone_number': phone_number, 'sex': sex, 'nick': nick, 'avatar': avatar, 'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             num = UserModel.update(**update_data).where(UserModel.id == user_id, UserModel.deleted_at == None).execute()
             if num:
                 return cls.success_with_result({'updated_at': update_data.get('updated_at')})
