@@ -2,10 +2,11 @@
 import bcrypt
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app
 
 from backend_common.controllers.base import BaseController
 from backend_common.middlewares.login_required import admin_required
+from backend_common.middlewares.request_service import get_request_params
 from backend_common.models.admin import Admin as AdminModel
 from backend_common.models.user_token import UserToken as UserTokenModel
 import backend_common.constants.user_type as user_type
@@ -16,8 +17,8 @@ admin_blueprint = Blueprint('admin', __name__)
 class AdminController(BaseController):
 
     @classmethod
-    def login(cls):
-        data = request.json or request.form or request.args
+    @get_request_params
+    def login(cls, data):
         try:
             username = data['username']
             password = data['password']
@@ -37,17 +38,17 @@ class AdminController(BaseController):
             raise AdminModel.LackOfFieldError(u'请传递参数用户名和密码')
 
     @classmethod
+    @get_request_params
     @admin_required
-    def logout(cls, admin):
-        data = request.json or request.form or request.args
+    def logout(cls, admin, data):
         token = data.get('token')
         UserTokenModel.delete().where(UserTokenModel.user_id == admin.id, UserTokenModel.user_type == user_type.ADMIN, UserTokenModel.token == token).execute()
         return cls.success_with_result(admin.format('updated_at'))
 
     @classmethod
+    @get_request_params
     @admin_required
-    def reset_password(cls, admin):
-        data = request.json or request.form or request.args
+    def reset_password(cls, admin, data):
         try:
             old_password = data['old_password']
             new_password = data['new_password']

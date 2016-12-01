@@ -1,8 +1,9 @@
 # coding=utf-8
 from datetime import datetime
-from flask import Blueprint, request
+from flask import Blueprint
 
 from backend_common.middlewares.login_required import admin_required
+from backend_common.middlewares.request_service import get_request_params
 from backend_common.models.user import User as UserModel
 from backend_common.controllers.user import UserController as UserCommonController
 
@@ -12,9 +13,9 @@ user_blueprint = Blueprint('user', __name__)
 class UserController(UserCommonController):
 
     @classmethod
+    @get_request_params
     @admin_required
-    def list(cls, admin):
-        data = request.json or request.form or request.args
+    def list(cls, admin, data):
         page_number = int(data.get('page_number', 1))
         page_size = int(data.get('page_size', 100))
         q = UserModel.select().where(UserModel.deleted_at == None)
@@ -26,9 +27,9 @@ class UserController(UserCommonController):
         return cls.success_with_list_result(total_rows, result)
 
     @classmethod
+    @get_request_params
     @admin_required
-    def update(cls, admin):
-        data = request.json or request.form or request.args
+    def update(cls, admin, data):
         user_id = data.get('user_id')
         sex = data.get('sex', 0)
         phone_number = data.get('phone_number', None)
