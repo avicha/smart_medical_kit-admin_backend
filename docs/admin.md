@@ -19,7 +19,7 @@ URL|HTTP|功能
 username|string|用户名
 password|string|密码
 
-登录成功result返回用户信息：
+登录成功，result返回用户信息：
 
 字段|类型|意义
 ----|----|----
@@ -34,7 +34,7 @@ token|string|令牌token
 ----|----|----
 token|string|令牌token
 
-成功退出登录result返回更新时间：
+成功退出登录，返回errcode=0错误码
 
 字段|类型|意义
 ----|----|----
@@ -49,4 +49,4 @@ old_password|string|旧密码
 new_password|string|新密码
 token|string|令牌token
 
-成功修改则返回errcode=0错误码
+成功修改，返回errcode=0错误码

@@ -13,7 +13,7 @@ def config_log(current_app):
     import logging
     import logging.handlers
     if config.log.handler == 'time_rotating_file':
-        LOG_FILE = config.log.log_dir + '/admin.log'
+        LOG_FILE = config.log.log_dir + '/' + config.server.app_name + '.log'
         handler = logging.handlers.TimedRotatingFileHandler(LOG_FILE, when=config.log.when, backupCount=config.log.backup_count)  # 实例化handler
     elif config.log.handler == 'stream':
         handler = logging.StreamHandler()
@@ -21,6 +21,7 @@ def config_log(current_app):
     formatter = logging.Formatter(config.log.format)
     # 为handler添加formatter
     handler.setFormatter(formatter)
+    # 去掉flask默认的handler
     current_app.config['LOGGER_HANDLER_POLICY'] = 'never'
     # 为logger添加handler
     current_app.logger.addHandler(handler)

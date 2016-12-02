@@ -27,19 +27,16 @@ class UserController(UserCommonController):
         return cls.success_with_list_result(total_rows, result)
 
     @classmethod
-    @get_request_params
+    @get_request_params('user_id', 'sex', 'phone_number', 'nick', 'avatar', allow_field_not_exists=False)
     @admin_required
     def update(cls, admin, data):
         user_id = data.get('user_id')
-        sex = data.get('sex', 0)
-        phone_number = data.get('phone_number', None)
-        nick = data.get('nick', None)
-        avatar = data.get('avatar', None)
         if user_id:
-            update_data = {'phone_number': phone_number, 'sex': sex, 'nick': nick, 'avatar': avatar, 'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-            num = UserModel.update(**update_data).where(UserModel.id == user_id, UserModel.deleted_at == None).execute()
+            del data['user_id']
+            data.update({'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
+            num = UserModel.update(**data).where(UserModel.id == user_id, UserModel.deleted_at == None).execute()
             if num:
-                return cls.success_with_result({'updated_at': update_data.get('updated_at')})
+                return cls.success_with_result({'updated_at': data.get('updated_at')})
             else:
                 raise UserModel.NotFoundError(u'该用户不存在')
         else:

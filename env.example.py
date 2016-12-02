@@ -1,4 +1,5 @@
 # coding=utf-8
+APP_NAME = 'smart_medical_kit-admin'
 # app的secret key
 SECRET_KEY = ''
 # 服务器绑定主机和端口

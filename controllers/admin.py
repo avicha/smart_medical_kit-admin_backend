@@ -43,7 +43,7 @@ class AdminController(BaseController):
     def logout(cls, admin, data):
         token = data.get('token')
         UserTokenModel.delete().where(UserTokenModel.user_id == admin.id, UserTokenModel.user_type == user_type.ADMIN, UserTokenModel.token == token).execute()
-        return cls.success_with_result(admin.format('updated_at'))
+        return cls.success_with_result(None)
 
     @classmethod
     @get_request_params
