@@ -17,7 +17,7 @@ admin_blueprint = Blueprint('admin', __name__)
 class AdminController(BaseController):
 
     @classmethod
-    @get_request_params
+    @get_request_params()
     def login(cls, data):
         try:
             username = data['username']
@@ -38,7 +38,7 @@ class AdminController(BaseController):
             raise AdminModel.LackOfFieldError(u'请传递参数用户名和密码')
 
     @classmethod
-    @get_request_params
+    @get_request_params()
     @admin_required
     def logout(cls, admin, data):
         token = data.get('token')
@@ -46,7 +46,7 @@ class AdminController(BaseController):
         return cls.success_with_result(None)
 
     @classmethod
-    @get_request_params
+    @get_request_params()
     @admin_required
     def reset_password(cls, admin, data):
         try:

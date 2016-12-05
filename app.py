@@ -57,7 +57,7 @@ def config_routes(current_app):
 def log_request(sender, **extra):
     g._start = time.time()
     data = request.json or request.form or request.args
-    current_app.logger.info('\n%s "%s %s"，请求参数%s', request.remote_addr.encode('utf-8'), request.method, request.url.encode('utf-8'), json.dumps(data))
+    current_app.logger.info('\n%s "%s %s"，请求参数%s', request.remote_addr, request.method, request.url.encode('utf-8'), json.dumps(data))
 
 
 def log_response(sender, response, **extra):

@@ -13,7 +13,7 @@ user_blueprint = Blueprint('user', __name__)
 class UserController(UserCommonController):
 
     @classmethod
-    @get_request_params
+    @get_request_params()
     @admin_required
     def list(cls, admin, data):
         page_number = int(data.get('page_number', 1))
