@@ -76,3 +76,10 @@ def user():
     from backend_common.models.user import User as UserModel
     user = UserModel.select().where(UserModel.deleted_at == None).order_by(UserModel.created_at.desc()).first()
     return user
+
+
+@pytest.fixture
+def user_address():
+    from backend_common.models.user_address import UserAddress as UserAddressModel
+    user_address = UserAddressModel.select().where(UserAddressModel.deleted_at == None).order_by(UserAddressModel.created_at.desc()).first()
+    return user_address

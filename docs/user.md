@@ -22,10 +22,11 @@ nick|string|昵称
 register_type|number|注册方式
 token|string|令牌token
 
-创建成功返回创建时间：
+创建成功，返回创建时间：
 
 字段|类型|意义
 ----|----|----
+id|number|用户ID
 created_at|date|创建时间
 
 #### 更新
@@ -40,7 +41,7 @@ nick|string|昵称
 avatar|string|头像URL
 token|string|令牌token
 
-修改成功返回更新时间：
+更新成功，返回更新时间：
 
 字段|类型|意义
 ----|----|----
@@ -56,7 +57,7 @@ page_size|number|每页返回结果数，默认100
 phone_number|number|用户手机号码，可选
 token|string|令牌token
 
-登录成功result返回用户信息：
+获取成功，result返回用户信息：
 
 字段|类型|意义
 ----|----|----
@@ -80,7 +81,7 @@ result[0].created_at|date|注册时间
 user_id|number|用户ID
 token|string|令牌token
 
-删除成功返回删除时间：
+删除成功，返回删除时间：
 
 字段|类型|意义
 ----|----|----

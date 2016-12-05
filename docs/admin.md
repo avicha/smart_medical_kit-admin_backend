@@ -34,7 +34,7 @@ token|string|令牌token
 ----|----|----
 token|string|令牌token
 
-成功退出登录，返回errcode=0错误码
+退出登录成功，返回errcode=0错误码
 
 字段|类型|意义
 ----|----|----
@@ -49,4 +49,4 @@ old_password|string|旧密码
 new_password|string|新密码
 token|string|令牌token
 
-成功修改，返回errcode=0错误码
+设置成功，返回errcode=0错误码
