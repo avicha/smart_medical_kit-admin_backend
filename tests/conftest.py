@@ -9,6 +9,7 @@ from flask import json
 @pytest.fixture(scope="session")
 def client():
     from backend_common.models.database import database
+    current_app.config['TESTING'] = True
     with database.transaction() as txn:
         yield current_app.test_client()
         txn.rollback()

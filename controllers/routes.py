@@ -10,6 +10,8 @@ def init_app(current_app):
     admin_blueprint.add_url_rule('/reset_password', 'reset_password_api', AdminController.reset_password, methods=['post'])
     current_app.register_blueprint(admin_blueprint, url_prefix='/api/admin')
     # 用户
-    user_blueprint.add_url_rule('/list', 'list_api', UserController.list, methods=['get'])
+    user_blueprint.add_url_rule('/create', 'create_api', UserController.create, methods=['post'])
     user_blueprint.add_url_rule('/update', 'update_api', UserController.update, methods=['post'])
+    user_blueprint.add_url_rule('/list', 'list_api', UserController.list, methods=['get'])
+    user_blueprint.add_url_rule('/delete', 'delete_api', UserController.delete, methods=['get'])
     current_app.register_blueprint(user_blueprint, url_prefix='/api/user')
