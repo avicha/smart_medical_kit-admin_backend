@@ -34,6 +34,22 @@ def test_user_list(api_get_list, token):
         assert 'created_at' in user
 
 
+def test_user_list_with_phone_number(api_get_list, token):
+    errcode, result, total_rows = api_get_list('/api/user/list', data={'token': token, 'phone_number': '12345678910'})
+    assert errcode == 0
+    assert total_rows >= 0
+    if total_rows > 0:
+        user = result[0]
+        assert 'id' in user
+        assert 'username' in user
+        assert 'sex' in user
+        assert 'phone_number' in user
+        assert 'nick' in user
+        assert 'avatar' in user
+        assert 'register_type' in user
+        assert 'created_at' in user
+
+
 def test_user_delete(api_get, token, user):
     if user:
         errcode, result = api_get('/api/user/delete', data={'token': token, 'user_id': user.id})
