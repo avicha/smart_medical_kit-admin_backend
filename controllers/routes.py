@@ -8,6 +8,7 @@ def init_app(current_app):
     # 管理员
     admin_blueprint.add_url_rule('/login', 'login_api', AdminController.login, methods=['post'])
     admin_blueprint.add_url_rule('/logout', 'logout_api', AdminController.logout, methods=['get'])
+    admin_blueprint.add_url_rule('/current', 'current_api', AdminController.current, methods=['get'])
     admin_blueprint.add_url_rule('/reset_password', 'reset_password_api', AdminController.reset_password, methods=['post'])
     current_app.register_blueprint(admin_blueprint, url_prefix='/api/admin')
     # 用户

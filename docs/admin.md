@@ -9,6 +9,7 @@ URL|HTTP|功能
 ---|----|----
 [/login](#登录)|POST|登录
 [/logout](#退出登录)|GET|退出登录
+[/current](#当前用户)|GET|当前用户
 [/reset_password](#重置密码)|POST|重置密码
 
 #### 登录
@@ -39,6 +40,20 @@ token|string|令牌token
 字段|类型|意义
 ----|----|----
 updated_at|date|更新时间
+
+#### 当前用户
+向/current发送GET请求，请求参数如下：
+
+字段|类型|意义
+----|----|----
+token|string|令牌token
+
+用户未登录，返回None，否则result返回用户信息：
+
+字段|类型|意义
+----|----|----
+id|number|管理员ID
+username|string|管理员用户名
 
 #### 重置密码
 向/reset_password发送POST请求，请求参数如下：

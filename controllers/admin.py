@@ -6,7 +6,7 @@ from flask import Blueprint, current_app
 
 from backend_common.controllers.base import BaseController
 from backend_common.middlewares.login_required import admin_required
-from backend_common.middlewares.request_service import get_request_params
+from backend_common.middlewares.request_service import get_request_params, load_admin
 from backend_common.models.admin import Admin as AdminModel
 from backend_common.models.user_token import UserToken as UserTokenModel
 import backend_common.constants.user_type as user_type
@@ -36,6 +36,15 @@ class AdminController(BaseController):
             raise AdminModel.NotFoundError(u'该用户不存在')
         except KeyError, e:
             raise AdminModel.LackOfFieldError(u'请传递参数用户名和密码')
+
+    @classmethod
+    @load_admin
+    def current(cls, admin):
+        if admin:
+            result = admin.format('id,username')
+            return cls.success_with_result(result)
+        else:
+            return cls.success_with_result(None)
 
     @classmethod
     @get_request_params()

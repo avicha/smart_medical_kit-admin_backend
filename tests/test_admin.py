@@ -28,6 +28,19 @@ def test_logout_with_error_token(api_get):
     assert errcode == int(str(http_code.FORBIDDEN) + AdminModel.code)
 
 
+def test_current_not_exists(api_get):
+    errcode, result = api_get('/api/admin/current')
+    assert errcode == 0
+    assert result == None
+
+
+def test_current_exists(api_get, token):
+    errcode, result = api_get('/api/admin/current', data={'token': token})
+    assert errcode == 0
+    assert 'id' in result
+    assert 'username' in result
+
+
 def test_reset_password_error(api_post, token):
     errcode, result = api_post('/api/admin/reset_password', data={'old_password': '654321', 'new_password': '123456'})
     assert errcode == int(str(http_code.FORBIDDEN) + AdminModel.code)

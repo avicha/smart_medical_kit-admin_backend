@@ -62,21 +62,24 @@ def log_request(sender, **extra):
 
 def log_response(sender, response, **extra):
     dt = (time.time() - g._start)*1000
-    resp = json.loads(response.response[0])
-    errcode = resp.get('errcode')
-    errmsg = resp.get('errmsg')
-    total_count = resp.get('total_count')
-    result = resp.get('result')
-    if errcode == 0:
-        if total_count != None:
-            current_app.logger.info('耗时%.fms，请求API列表成功，返回结果：%s', dt, total_count)
+    try:
+        resp = json.loads(response.response[0])
+        errcode = resp.get('errcode')
+        errmsg = resp.get('errmsg')
+        total_count = resp.get('total_count')
+        result = resp.get('result')
+        if errcode == 0:
+            if total_count != None:
+                current_app.logger.info('耗时%.fms，请求API列表成功，返回结果：%s', dt, total_count)
+            else:
+                current_app.logger.info('耗时%.fms，请求API成功，返回结果：%s', dt, json.dumps(result))
         else:
-            current_app.logger.info('耗时%.fms，请求API成功，返回结果：%s', dt, json.dumps(result))
-    else:
-        if errcode == 500:
-            current_app.logger.error('耗时%.fms，发生系统未捕获错误，错误信息：%s', dt, errmsg.encode('utf-8'))
-        else:
-            current_app.logger.error('耗时%.fms，请求业务API出错，返回错误码%s，错误信息：%s', dt, errcode, errmsg.encode('utf-8'))
+            if errcode == 500:
+                current_app.logger.error('耗时%.fms，发生系统未捕获错误，错误信息：%s', dt, errmsg.encode('utf-8'))
+            else:
+                current_app.logger.error('耗时%.fms，请求业务API出错，返回错误码%s，错误信息：%s', dt, errcode, errmsg.encode('utf-8'))
+    except Exception, e:
+        pass
 
 
 def create_app():
