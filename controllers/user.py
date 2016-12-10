@@ -16,8 +16,16 @@ class UserController(UserCommonController):
     @get_request_params()
     @admin_required
     def create(cls, admin, data):
+        import backend_common.constants.sex as sex
         phone_number = data.get('phone_number')
-        user, is_new_created = UserModel.get_or_create(phone_number=phone_number, defaults={'username': phone_number, 'nick': data.get('nick'), 'register_type': data.get('register_type')})
+        user_data = {
+            'username': data.get('username') or phone_number,
+            'nick': data.get('nick'),
+            'sex': data.get('sex', sex.UNKNOWN),
+            'avatar': data.get('avatar'),
+            'register_type': data.get('register_type')
+        }
+        user, is_new_created = UserModel.get_or_create(phone_number=phone_number, defaults=user_data)
         return cls.success_with_result(user.format('id,created_at'))
 
     @classmethod

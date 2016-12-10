@@ -17,8 +17,11 @@ URL|HTTP|功能
 
 字段|类型|意义
 ----|----|----
+username|string|用户名
 phone_number|number|用户手机号码
+sex|number|性别
 nick|string|昵称
+avatar|string|头像URL
 register_type|number|注册方式
 token|string|令牌token
 
