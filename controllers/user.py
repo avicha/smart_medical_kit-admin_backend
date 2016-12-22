@@ -19,7 +19,6 @@ class UserController(UserCommonController):
         import backend_common.constants.sex as sex
         phone_number = data.get('phone_number')
         user_data = {
-            'username': data.get('username') or phone_number,
             'nick': data.get('nick'),
             'sex': data.get('sex', sex.UNKNOWN),
             'avatar': data.get('avatar'),
@@ -29,7 +28,7 @@ class UserController(UserCommonController):
         return cls.success_with_result(user.format('id,created_at'))
 
     @classmethod
-    @get_request_params('user_id', 'sex', 'phone_number', 'nick', 'avatar', allow_field_not_exists=False)
+    @get_request_params('user_id', 'phone_number', 'nick', 'sex',  'avatar', allow_field_not_exists=False)
     @admin_required
     def update(cls, admin, data):
         user_id = data.get('user_id')
@@ -55,7 +54,7 @@ class UserController(UserCommonController):
         total_rows = q.count()
         result = []
         for x in q.order_by(UserModel.created_at.desc()).paginate(page_number, page_size):
-            user = x.format('id,username,sex,phone_number,nick,avatar,register_type,created_at')
+            user = x.format('id,phone_number,nick,sex,avatar,register_type,created_at')
             result.append(user)
         return cls.success_with_list_result(total_rows, result)
 

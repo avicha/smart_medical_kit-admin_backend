@@ -37,10 +37,6 @@ token|string|令牌token
 
 退出登录成功，返回errcode=0错误码
 
-字段|类型|意义
-----|----|----
-updated_at|date|更新时间
-
 #### 当前用户
 向/current发送GET请求，请求参数如下：
 

@@ -17,10 +17,9 @@ URL|HTTP|功能
 
 字段|类型|意义
 ----|----|----
-username|string|用户名
 phone_number|number|用户手机号码
-sex|number|性别
 nick|string|昵称
+sex|number|性别
 avatar|string|头像URL
 register_type|number|注册方式
 token|string|令牌token
@@ -38,10 +37,11 @@ created_at|date|创建时间
 字段|类型|意义
 ----|----|----
 user_id|number|用户ID
-sex|number|性别
 phone_number|number|用户手机号码
 nick|string|昵称
+sex|number|性别
 avatar|string|头像URL
+register_type|number|注册方式
 token|string|令牌token
 
 更新成功，返回更新时间：
@@ -68,10 +68,9 @@ errcode|number|错误码
 total_count|number|结果总数
 result|array|返回结果
 result[0].id|number|用户ID
-result[0].username|string|用户名
-result[0].sex|number|性别
 result[0].phone_number|number|用户手机号码
 result[0].nick|string|昵称
+result[0].sex|number|性别
 result[0].avatar|string|头像URL
 result[0].register_type|number|注册方式
 result[0].created_at|date|注册时间

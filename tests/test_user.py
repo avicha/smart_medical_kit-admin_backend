@@ -25,7 +25,6 @@ def test_user_list(api_get_list, token):
     if total_rows > 0:
         user = result[0]
         assert 'id' in user
-        assert 'username' in user
         assert 'sex' in user
         assert 'phone_number' in user
         assert 'nick' in user
@@ -41,7 +40,6 @@ def test_user_list_with_phone_number(api_get_list, token):
     if total_rows > 0:
         user = result[0]
         assert 'id' in user
-        assert 'username' in user
         assert 'sex' in user
         assert 'phone_number' in user
         assert 'nick' in user

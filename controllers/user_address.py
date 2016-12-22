@@ -62,6 +62,8 @@ class UserAddressController(UserAddressCommonController):
     def set_default(cls, admin, user_address):
         with database.transaction():
             UserAddressModel.update(is_default=False).where(UserAddressModel.user_id == user_address.user_id, UserAddressModel.deleted_at == None).execute()
+            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            user_address.updated_at = now
             user_address.is_default = True
             user_address.save()
             return cls.success_with_result(None)
