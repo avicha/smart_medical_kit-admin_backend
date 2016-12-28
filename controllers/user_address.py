@@ -66,4 +66,4 @@ class UserAddressController(UserAddressCommonController):
             user_address.updated_at = now
             user_address.is_default = True
             user_address.save()
-            return cls.success_with_result(None)
+            return cls.success()

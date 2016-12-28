@@ -52,7 +52,7 @@ class AdminController(BaseController):
     def logout(cls, admin, data):
         token = data.get('token')
         UserTokenModel.delete().where(UserTokenModel.user_id == admin.id, UserTokenModel.user_type == user_type.ADMIN, UserTokenModel.token == token).execute()
-        return cls.success_with_result(None)
+        return cls.success()
 
     @classmethod
     @get_request_params()
@@ -65,7 +65,7 @@ class AdminController(BaseController):
                 admin.password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
                 admin.updated_at = datetime.now()
                 admin.save()
-                return cls.success_with_result(None)
+                return cls.success()
             else:
                 raise AdminModel.PasswordError()
         except KeyError, e:
